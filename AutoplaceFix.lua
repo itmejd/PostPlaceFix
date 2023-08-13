@@ -5,11 +5,14 @@ module_manager.register("AutoplaceFix", {
     on_receive_packet = function(e)
         if e.packet_id == 0x02 then
             message = string.gsub(e.message, '(\194\167%w)', '')
-            if string.find(message, "Derek Chauvin on top") then
+            if string.find(message, "last game i got kneeled on by derek chauvin how to fix?") then
                 recivedPacket = true
-            elseif string.find(message, "last game i got kneeled on by derek chauvin how to fix?") then
+            elseif string.find(message, "Derek Chauvin on top") then
                 recivedPacket2 = true
             end
+            elseif string.find(message, "Why am I blacklisted on astrus 1HC?") then
+                recivedPacket3 = true
+            end  
         end
     end,
 
@@ -28,6 +31,13 @@ module_manager.register("AutoplaceFix", {
         return t
     end,
 
+    on_pre_update = function()
+        if recivedPacket3 then
+            player.message("/shout Sup chat")
+            recivedPacket3 = false
+        end
+    end,
+    
     on_player_join = function()
         recivedPacket = false
     end
